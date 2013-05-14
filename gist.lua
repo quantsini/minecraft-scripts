@@ -1,4 +1,4 @@
-os.loadAPI("disk/json")
+os.loadAPI("json")
 
 local url = "https://api.github.com/gists"
 local args = {...}

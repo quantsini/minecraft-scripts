@@ -1,5 +1,4 @@
 os.loadAPI("disk/json")
-os.loadAPI("disk/urlencode")
 
 local url = "https://api.github.com/gists"
 local args = {...}
@@ -25,14 +24,12 @@ local content = {
      }
     }
   }
-content = json.encode(content)
-
-print(content)
+content = json.json.encode(content)
 local resp = http.post(url, content)
 if resp == nil then
   print("what")
   return 0
 end
-resp = json.decode(resp.readAll())
+resp = json.json.decode(resp.readAll())
 
 print(resp["html_url"])

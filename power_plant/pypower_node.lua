@@ -24,6 +24,7 @@ local REQUEST_HANDLERS = {
 		-- Responds with status information
 		return {
 			['is_running']=pypower_node.is_running,
+			['id']=os.getComputerID(),
 			['capacity']=false,
 			['output']=false,
 		}

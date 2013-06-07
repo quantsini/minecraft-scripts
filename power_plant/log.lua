@@ -9,7 +9,7 @@ end
 
 function Logger.new(name, monitor, write_func)
 	write_func = write_func or print	
-	return setmetatable({name=name, monitor=monitor, write_func=write_func, should_log=true}, Logger)
+	return setmetatable({name=name, monitor=monitor, write_func=write_func, should_log=false}, Logger)
 end
 
 function Logger:info(msg)

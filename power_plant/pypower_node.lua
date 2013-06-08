@@ -25,8 +25,6 @@ local REQUEST_HANDLERS = {
 		return {
 			['is_running']=pypower_node.is_running,
 			['id']=os.getComputerID(),
-			['capacity']=false,
-			['output']=false,
 		}
 	end,
 	['ACTIVATE_NODE']=function(from_id, payload, distance)
@@ -39,13 +37,11 @@ local REQUEST_HANDLERS = {
 	end,
 }
 
-reactor.register_request_handlers(REQUEST_HANDLERS)
-
 function pypower_node.start()
 	logger:info("Starting node")
 	rednet.open("front")
 	pypower_node.deactivate()
-	reactor.start(true, nil)
+	reactor.start(true, nil, REQUEST_HANDLERS)
 end
 
 return pypower_node

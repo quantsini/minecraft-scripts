@@ -9,7 +9,6 @@ local log = dofile("log.lua")
 local Defer = dofile("defer.lua")
 
 local reactor = {}
-
 local logger = log.Logger.new("reactor")
 local __callback_identifier = 0
 reactor.EVENT_NAME_SENTINEL = '_DISPATCH'

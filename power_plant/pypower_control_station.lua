@@ -54,7 +54,8 @@ function pypower_control_station.build_status()
 		['status']=pypower_control_station.get_status(),
 		['total_nodes']=table.getn(pypower_control_station.nodes),
 		['running_nodes']=pypower_control_station.count_number_running_nodes(),
-		['station_id']=os.getComputerID(),
+		['id']=os.getComputerID(),
+		['name']=os.getComputerLabel(),
 	}
 end
 
@@ -97,8 +98,8 @@ local function heartbeat()
 end
 
 local REQUEST_HANDLERS = {
-	['STATUS']=pypower_control_station.on_status,
-	['ACTIVATE']=pypower_control_station.on_activate,
+	['STATION_STATUS']=pypower_control_station.on_status,
+	['STATION_ACTIVATE']=pypower_control_station.on_activate,
 }
 
 function pypower_control_station.start()

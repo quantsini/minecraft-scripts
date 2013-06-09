@@ -1,0 +1,38 @@
+local pypower = dofile("pypower.lua")
+local reactor = dofile("reactor.lua")
+local cargs = {...}
+
+print("Pypower 0.1")
+rednet.open("bottom")
+local function main()
+	local function print_help()
+		print("Usage: pypower command <id> <args>")
+		print(" Available commands:")
+		print(" list - lists all control stations")
+		print(" activate id n - activates n nodes @ station id.")
+		print (" shutdown id - deactivates all nodes @ station id.")
+	end
+ 
+	 if table.getn(cargs) == 0 then
+		print_help()
+		return
+	 end
+
+	if cargs[1] == 'list' then
+		local stations = pypower.list_stations(false)
+		for _, station in ipairs(stations) do
+			for k, v in pairs(station) do
+				print(k..": "..v)
+			end
+			print('============')
+		end
+	elseif cargs[1] == 'activate' then
+		pypower.activate(cargs[2], cargs[3])
+	elseif cargs[1] == 'shutdown' then
+		pypower.shutdown(cargs[2])
+	elseif cargs[1] == 'help' then
+		print_help()
+	end
+end
+
+reactor.start(false, main)

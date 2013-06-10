@@ -9,8 +9,16 @@ function pypower.list_stations(deferred)
 	return status
 end
 
+function pypower.status(recipient, deferred)
+	local status = reactor.remote_call(recipient, "STATION_STATUS")
+	if not deferred then
+		status = status(0.5)
+	end
+	return status
+end
+
 function pypower.activate(recipient, num_stations, deferred)
-	local status = reactor.remote_call(recipient, "STATION_ACTIVATE", {['number']=tonumber(num_stations)})
+	local status = reactor.remote_call(recipient, "STATION_ACTIVATE_POWER_NODE", {['number']=tonumber(num_stations)})
 	if not deferred then
 		status = status(0.5)
 	end

@@ -39,7 +39,6 @@ local REQUEST_HANDLERS = {
 
 function pypower_node.start()
 	logger:info("Starting node")
-	rednet.open("front")
 	pypower_node.deactivate()
 	reactor.start(true, nil, REQUEST_HANDLERS)
 end

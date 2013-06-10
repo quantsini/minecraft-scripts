@@ -22,7 +22,7 @@ local function main()
 		local stations = pypower.list_stations(false)
 		for _, station in ipairs(stations) do
 			for k, v in pairs(station) do
-				print(k..": "..v)
+				print(k..": "..textutils.serialize(v))
 			end
 			print('============')
 		end
@@ -30,7 +30,12 @@ local function main()
 		pypower.activate(cargs[2], cargs[3])
 	elseif cargs[1] == 'shutdown' then
 		pypower.shutdown(cargs[2])
-	elseif cargs[1] == 'help' then
+	elseif cargs[1] == 'status' then
+		local station = pypower.status(cargs[2])
+		for k, v in pairs(station) do
+			print(k..": "..textutils.serialize(v))
+		end
+	else
 		print_help()
 	end
 end

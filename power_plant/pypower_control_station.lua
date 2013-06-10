@@ -11,8 +11,6 @@ local OUTSIDE_WORLD_SIDE = "bottom"
 rednet.open(POWER_PLANT_SIDE)
 rednet.open(OUTSIDE_WORLD_SIDE)
 
-pypower_control_station.power_nodes = {}
-
 local function activate_node(node_id)
 	return reactor.remote_call(node_id, "ACTIVATE_NODE", nil, POWER_PLANT_SIDE)
 end
@@ -51,11 +49,13 @@ end
 
 function pypower_control_station.build_status()
 	return {
+		['station_type']='power_plant',
 		['status']=pypower_control_station.get_status(),
 		['total_nodes']=table.getn(pypower_control_station.nodes),
 		['running_nodes']=pypower_control_station.count_number_running_nodes(),
 		['id']=os.getComputerID(),
 		['name']=os.getComputerLabel(),
+		['available_methods']={'STATION_ACTIVATE_POWER_NODE', 'STATION_STATUS'}
 	}
 end
 
@@ -99,7 +99,7 @@ end
 
 local REQUEST_HANDLERS = {
 	['STATION_STATUS']=pypower_control_station.on_status,
-	['STATION_ACTIVATE']=pypower_control_station.on_activate,
+	['STATION_ACTIVATE_POWER_NODE']=pypower_control_station.on_activate,
 }
 
 function pypower_control_station.start()
